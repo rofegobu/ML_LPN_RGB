@@ -10,7 +10,7 @@ import pandas as pd
 import json
 import random
 
-from unique_values import STATES, MAKES, MODELS
+#from unique_values import STATES, MAKES, MODELS
 
 app = Flask(__name__)
 
@@ -29,9 +29,9 @@ ns = api.namespace('predict', description='Predicciones')
 model = api.model('PredictionInput', {
     'Year': fields.Integer(required=True, description='Año del vehículo', example=2016),
     'Mileage': fields.Float(required=True, description='Kilometraje del vehículo', example=50000),
-    'State': fields.String(required=True, description='Estado donde se encuentra el vehículo', enum=STATES),
-    'Make': fields.String(required=True, description='Marca del vehículo', enum=MAKES),
-    'Model': fields.String(required=True, description='Modelo del vehículo', enum=MODELS)
+    'State': fields.String(required=True, description='Estado donde se encuentra el vehículo', example=CA),
+    'Make': fields.String(required=True, description='Marca del vehículo', example=Chevrolet),
+    'Model': fields.String(required=True, description='Modelo del vehículo', example=Silverado)
 })
 
 # Cargar el modelo y preprocesador entrenados
@@ -58,4 +58,4 @@ class Predict(Resource):
         return jsonify({'predicted_price': prediction})
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
